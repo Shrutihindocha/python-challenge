@@ -9,48 +9,55 @@ with open(filepath_read, 'r') as electiondata_csv:
     csvreader = csv.reader(electiondata_csv, delimiter = ',')
     csvheader = next(csvreader)
 
+    vote_count = []
+    candidates = []
+    candidate_votecounts = []
+    percentages = []
+
     for row in csvreader: 
-        #The total number of votes cast
-
+        vote_count.append(row[2])
         #A complete list of candidates who received votes
+        candidates = set(vote_count)
+        #The total number of votes cast
+        total_votes = len(vote_count)
+        
+    print(f'Election Results')
+    print('--------------------------------')
+    print(f'Total Votes: {total_votes}')
+    print('--------------------------------')
 
-        #The percentage of votes each candidate won
+    for candidate in candidates:
+        candidate_votecount = vote_count.count(candidate)
+        candidate_votecounts.append(candidate_votecount)
 
-        #The total number of votes each candidate won
-
-        #The winner of the election based on popular vote.
-
-#prining results to the terminal window
-print(f'Election Results')
-print('--------------------------------')
-print(f'Total Votes: {}')
-print('--------------------------------')
-print(f'{}: {} ({})')
-print(f'{}: {} ({})')
-print(f'{}: {} ({})')
-print(f'{}: {} ({})')
-print('--------------------------------')
-print(f'Winner: {}')
-print('--------------------------------')
-
-#exporting results to the text file
-filepath_write = os.path.join("Analysis", "output.txt")
-
-with open(filepath_write, 'w') as txtfile:
+        percentage = candidate_votecount/total_votes
+        percentages.append(percentage)
     
-    #writing rows
-    txtfile.write(
-    f"""
-    Election Results
-    --------------------------------
-    Total Votes: {}
-    --------------------------------
-    {}: {} ({})
-    {}: {} ({})
-    {}: {} ({})
-    {}: {} ({})
-    --------------------------------
-    Winner: {}
-    --------------------------------
-    """
-        )
+        print(f'{candidate}: {percentage} ({candidate_votecount})')
+
+        if candidate_votecount == max(candidate_votecounts):
+            winner = candidate
+
+    print('--------------------------------')
+    print(f'Winner: {winner}')
+    print('--------------------------------')
+
+# #exporting results to the text file
+# filepath_write = os.path.join("Analysis", "output.txt")
+
+# with open(filepath_write, 'w') as txtfile:
+    
+#     #writing rows
+#     txtfile.write(
+#     f"""
+#     Election Results
+#     --------------------------------
+#     Total Votes: {total_votes}
+#     --------------------------------
+#     {for candidate in candidates:
+#         election_results(candidate)}
+#     --------------------------------
+#     Winner: {winner}
+#     --------------------------------
+#     """
+#         )
