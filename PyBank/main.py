@@ -56,17 +56,21 @@ print(f'Greatest Increase in Profits: {gincrease_date} (${gincrease_prof})')
 print(f'Greatest Decrease in Losses: {gdecrease_date} (${gdecrease_loss})')
 
 #exporting results to the text file
-filepath_write = os.path.join("Analysis", "output.csv")
+filepath_write = os.path.join("Analysis", "output.txt")
 
-with open(filepath_write, 'w', newline='') as txtfile:
-    outputxt = csv.writer(txtfile)
+with open(filepath_write, 'w') as txtfile:
+    
     #writing rows
-    outputxt.writerow('Financial Analysis')
-    outputxt.writerow('--------------------------------')
-    outputxt.writerow('Total Months: {months_total}')
-    outputxt.writerow('Total: {net}')
-    outputxt.writerow('Averange change: {round(average_change,2)}')
-    outputxt.writerow('Greatest Increase in Profits: {gincrease_date} (${gincrease_prof})')
-    outputxt.writerow('Greatest Decrease in Losses: {gdecrease_date} (${gdecrease_loss})')
+    txtfile.write(
+    f"""
+    Financial Analysis
+    --------------------------------
+    Total Months: {months_total}
+    Total: {net}
+    Averange change: {round(average_change,2)}
+    Greatest Increase in Profits: {gincrease_date} (${gincrease_prof})
+    Greatest Decrease in Losses: {gdecrease_date} (${gdecrease_loss})
+    """
+        )
 
     
