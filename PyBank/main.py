@@ -23,6 +23,7 @@ def financial_analysis(budgetdata):
     net = sum(profit_losses)
 
     #Average of the changes
+    profit_loss = budgetdata[1]
     change = profit_losses - change
     changes.append(change)
     change = profit_losses
