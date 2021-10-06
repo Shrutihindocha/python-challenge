@@ -23,53 +23,48 @@ with open(filepath_read, 'r') as electiondata_csv:
     # print(f'{candidates_sorted}')
     #The total number of votes cast
     total_votes = len(vote_count)
-        
+    
     print(f'Election Results')
     print('--------------------------------')
     print(f'Total Votes: {total_votes}')
-    print('--------------------------------')
-    
-    for candidate in candidates_sorted:
-        candidate_votecount = vote_count.count(candidate)
-        candidate_votecounts.append(candidate_votecount)
-
-        percentage = round((candidate_votecount/total_votes)*100,3)
-        percentages.append(percentage)
-
-        print(f'{candidate}: {percentage}% ({candidate_votecount})')
-
-        if candidate_votecount == max(candidate_votecounts):
-            winner = candidate
-
-    print('--------------------------------')
-    print(f'Winner: {winner}')
     print('--------------------------------')
 
     #exporting results to the text file
     filepath_write = os.path.join("Analysis", "output.txt")
 
     with open(filepath_write, 'w') as txtfile:
-        
+    
         #writing rows
         txtfile.write(
-        f"""
-        Election Results
-        --------------------------------
-        Total Votes: {total_votes}
-        --------------------------------
-        {for candidate in candidates_sorted:
+f"""
+Election Results
+--------------------------------
+Total Votes: {total_votes}
+--------------------------------""")
+    
+        for candidate in candidates_sorted:
             candidate_votecount = vote_count.count(candidate)
             candidate_votecounts.append(candidate_votecount)
 
             percentage = round((candidate_votecount/total_votes)*100,3)
             percentages.append(percentage)
 
-            print(f'{candidate}: {percentage}% ({candidate_votecount})')
-
+            output = f'{candidate}: {percentage}% ({candidate_votecount})'
+            print(output)
+            txtfile.write(f'\n{output}')
+            
             if candidate_votecount == max(candidate_votecounts):
-                winner = candidate}
-        --------------------------------
-        Winner: {winner}
-        --------------------------------
-        """
-            )
+                winner = candidate
+
+        print('--------------------------------')
+        print(f'Winner: {winner}')
+        print('--------------------------------')
+
+        #writing rows
+        txtfile.write(
+    f"""
+--------------------------------
+Winner: {winner}
+--------------------------------
+"""
+    )
